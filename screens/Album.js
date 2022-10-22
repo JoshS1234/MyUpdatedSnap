@@ -14,8 +14,6 @@ const Album = ({ route, navigation }) => {
   const albumName = route.params.album.name;
   const albumNumber = route.params.album.albumNumber;
 
-  console.log(albumNumber);
-
   function renderItem({ item, index }) {
     return (
       <PolaroidCard

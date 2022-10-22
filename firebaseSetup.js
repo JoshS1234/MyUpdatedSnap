@@ -15,12 +15,13 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCnJk55GXacEMFtWXIVxCTdhUZOKpdn23w",
-  authDomain: "snapcamera-67a16.firebaseapp.com",
-  projectId: "snapcamera-67a16",
-  storageBucket: "snapcamera-67a16.appspot.com",
-  messagingSenderId: "658953323817",
-  appId: "1:658953323817:web:1e7e81c7cdbc3d3bd0e338",
+  apiKey: "AIzaSyA4lZ0-EhhtpfDlfSPXyVwyWQbCf00zNQQ",
+  authDomain: "mysnap-d6e1e.firebaseapp.com",
+  projectId: "mysnap-d6e1e",
+  storageBucket: "mysnap-d6e1e.appspot.com",
+  messagingSenderId: "870182532110",
+  appId: "1:870182532110:web:e80247f5b3cb2faf7c785f",
+  measurementId: "G-9H6BNSY835",
 };
 
 // Initialize Firebase

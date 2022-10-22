@@ -32,6 +32,8 @@ function Login() {
 
   const back_img = require("../potentialBG/10doodles.png");
 
+  // auth.signOut();
+
   useEffect(() => {
     // signOut(auth);
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -73,7 +75,7 @@ function Login() {
         albums: {
           0: {
             name: "Album 1",
-            size: 20,
+            size: 2,
             photosTaken: 0,
             isFilmFull: false,
             path: `user_${newEmail}/albums/`,

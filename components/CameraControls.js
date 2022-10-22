@@ -60,37 +60,37 @@ export default function CameraControls({ cameraRef, setImage, image }) {
     }
   };
 
-  const uploadPhoto = async (crop, imageRef) => {
-    const img = await fetch(crop.uri);
-    const bytes = await img.blob();
-    uploadBytes(imageRef, bytes)
-      .then(() => {
-        console.log(
-          "photo uploaded: ",
-          `/user_${auth.currentUser?.email}/albums/${film.name}/${film.photosTaken}`
-        );
+  // const uploadPhoto = async (crop, imageRef) => {
+  //   const img = await fetch(crop.uri);
+  //   const bytes = await img.blob();
+  //   uploadBytes(imageRef, bytes)
+  //     .then(() => {
+  //       console.log(
+  //         "photo uploaded: ",
+  //         `/user_${auth.currentUser?.email}/albums/${film.name}/${film.photosTaken}`
+  //       );
 
-        return getDownloadURL(
-          ref(storage, `user_${email}/albums/${film.name}/${film.photosTaken}`)
-        );
-      })
-      .then((url) => {
-        setFilm((currFilm) => {
-          const newFilm = { ...currFilm };
-          newFilm.photos.push({ date: Date.now(), URL: url });
-          newFilm.photosTaken = currFilm.photosTaken + 1;
+  //       return getDownloadURL(
+  //         ref(storage, `user_${email}/albums/${film.name}/${film.photosTaken}`)
+  //       );
+  //     })
+  //     .then((url) => {
+  //       setFilm((currFilm) => {
+  //         const newFilm = { ...currFilm };
+  //         newFilm.photos.push({ date: Date.now(), URL: url });
+  //         newFilm.photosTaken = currFilm.photosTaken + 1;
 
-          return newFilm;
-        });
-        setIsLoading(false);
-      })
-      // .then(() => {
-      //   resetImage();
-      // })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //         return newFilm;
+  //       });
+  //       setIsLoading(false);
+  //     })
+  //     // .then(() => {
+  //     //   resetImage();
+  //     // })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const takePicture = async () => {
     console.log("in takepic function");
