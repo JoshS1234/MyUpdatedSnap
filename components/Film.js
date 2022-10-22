@@ -14,6 +14,8 @@ export default function Film(props) {
 
   const newFilmHandler = () => {
     if (!props.film.isFilmFull) {
+      alert("You need to finish the current film before replacing");
+      // console.log("Film not full");
       return;
     }
     const newFilm = {
@@ -51,7 +53,12 @@ export default function Film(props) {
     >
       <View style={{ marginRight: 1 }}>
         {!props.film.isFilmFull ? (
-          <MaterialCommunityIcons name="film" size={60} color="black" />
+          <MaterialCommunityIcons
+            name="film"
+            size={60}
+            color="black"
+            onPress={newFilmHandler}
+          />
         ) : (
           <Entypo
             name="circle-with-plus"
