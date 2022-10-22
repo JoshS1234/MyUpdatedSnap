@@ -10,6 +10,8 @@ import {
   ImageBackground,
 } from "react-native";
 import {
+  EmailAuthProvider,
+  getAuth,
   reauthenticateWithCredential,
   signOut,
   updatePassword,
@@ -27,6 +29,7 @@ function Profile() {
   // const back_img = require("../potentialBG/9.jpg");
   // const back_img = require("../potentialBG/CameraBackground6.jpg");
   const back_img = require("../potentialBG/10doodles.png");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
   const [newPassMode, setNewPassMode] = useState(false);
@@ -69,28 +72,46 @@ function Profile() {
     setNewPassMode(!newPassMode);
   };
 
-  const handleChangingPassword = () => {
-    if (newPassMode) {
-      console.log("attempting to change password");
-      if (newPassword === newPassword2) {
-        console.log("passwords the same");
-        // reauthenticateWithCredential(auth.currentUser, auth)
-        // .then(() => {
-        updatePassword(auth.currentUser, newPassword)
-          // })
-          .then(() => {
-            console.log("password change success");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        Alert.alert("Password error: ", "passwords do not match");
-      }
-    } else {
-      console.log("hello");
-    }
-    setNewPassMode(!newPassMode);
+  const handleChangingPassword = async () => {
+    const credential = EmailAuthProvider.credential(
+      auth.currentUser?.email,
+      currentPassword
+    );
+
+    const result = await reauthenticateWithCredential(
+      auth.currentUser,
+      credential
+    )
+      .then(() => {
+        if (newPassMode) {
+          console.log("attempting to change password");
+          if (newPassword.length !== 0) {
+            if (newPassword === newPassword2) {
+              // reauthenticateWithCredential(auth.currentUser, auth)
+              // .then(() => {
+              updatePassword(auth.currentUser, newPassword)
+                // })
+                .then(() => {
+                  console.log("password change success");
+                  Alert.alert("Password changed successfully");
+                })
+                .catch((err) => {
+                  console.log(err);
+                  Alert.alert("Error: ", err.code);
+                });
+            } else {
+              Alert.alert("Passwords do not match");
+            }
+          } else {
+            console.log("Empty password is not valid");
+            Alert.alert("Empty password is not valid");
+          }
+        }
+        setNewPassMode(false);
+      })
+      .catch((err) => {
+        Alert.alert(err.code);
+      });
   };
 
   return (
@@ -114,6 +135,13 @@ function Profile() {
               <View style={styles.changePassBox}>
                 {newPassMode ? (
                   <View style={styles.inputContainer}>
+                    <TextInput
+                      placeholder="Current password"
+                      value={currentPassword}
+                      onChangeText={(text) => setCurrentPassword(text)}
+                      style={styles.input}
+                      secureTextEntry
+                    />
                     <TextInput
                       placeholder="New Password"
                       value={newPassword}
