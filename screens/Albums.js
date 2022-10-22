@@ -23,10 +23,10 @@ export default function Albums() {
       const returnArray = [];
 
       Object.keys(userAlbums).map((albumIndex) => {
+        console.log(albumIndex);
         returnArray.push([userAlbums[albumIndex], albumIndex]);
       });
-
-      setAlbums(returnArray);
+      await setAlbums(returnArray);
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
@@ -36,7 +36,6 @@ export default function Albums() {
   useEffect(() => {
     if (isFocused) {
       getData();
-      console.log("using useffect");
     }
   }, [isFocused]);
 
@@ -47,17 +46,15 @@ export default function Albums() {
           style={styles.albumsList}
           // source={require("../potentialBG/10doodles.png")}
         >
-          {albums
-            .sort(function (a, b) {
-              return a.isFilmFull - b.isFilmFull;
-            })
-            .map((album) => (
-              <AlbumCard
-                album={album[0]}
-                albumNumber={album[1]}
-                key={album[0].name}
-              />
-            ))}
+          {console.log("List of albums >>>", albums)}
+
+          {albums.map((album) => (
+            <AlbumCard
+              album={album[0]}
+              albumNumber={album[1]}
+              key={album[0].name}
+            />
+          ))}
         </ImageBackground>
       </ScrollView>
     </ImageBackground>
