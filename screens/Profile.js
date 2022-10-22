@@ -22,12 +22,6 @@ import { doc, getDoc } from "firebase/firestore";
 import colorMain from "../assets/colors/colorMain";
 
 function Profile() {
-  // const back_img = require("../potentialBG/4.webp");
-  // const back_img = require("../potentialBG/5.jpg");
-  // const back_img = require("../potentialBG/7.jpg");
-  // const back_img = require("../potentialBG/8.webp");
-  // const back_img = require("../potentialBG/9.jpg");
-  // const back_img = require("../potentialBG/CameraBackground6.jpg");
   const back_img = require("../potentialBG/10doodles.png");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
