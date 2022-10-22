@@ -22,6 +22,7 @@ export default function CameraControls({ cameraRef, setImage, image }) {
   const email = auth.currentUser?.email;
   const docRef = doc(db, "users", email);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
 
   const getCurrFilm = async () => {
     const docSnap = await getDoc(docRef);
@@ -123,15 +124,15 @@ export default function CameraControls({ cameraRef, setImage, image }) {
 
         const img = await fetch(crop.uri);
         const bytes = await img.blob();
+        setIsUploading(true);
         uploadBytes(imageRef, bytes)
           .then(() => {
-            setImage(crop.uri);
-            console.log(
-              "photo uploaded: ",
-              `/user_${auth.currentUser?.email}/albums/${film.name}/${film.photosTaken}`
-            );
+            // setImage(crop.uri);
+            // console.log(
+            //   "photo uploaded: ",
+            //   `/user_${auth.currentUser?.email}/albums/${film.name}/${film.photosTaken}`
+            // );
 
-            setIsLoading(false);
             return getDownloadURL(
               ref(
                 storage,
@@ -149,6 +150,9 @@ export default function CameraControls({ cameraRef, setImage, image }) {
             updateDbWhenPhotoTaken(newFilm);
 
             setFilm(newFilm);
+
+            setIsUploading(false);
+            setIsLoading(false);
           });
 
         //uploadPhoto(crop, imageRef);
@@ -179,7 +183,7 @@ export default function CameraControls({ cameraRef, setImage, image }) {
           borderTopColor: "white",
           flex: 1,
           padding: 15,
-          flexDirection: "row",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           marginBottom: 15,
@@ -199,7 +203,9 @@ export default function CameraControls({ cameraRef, setImage, image }) {
             </>
           )}
         </TouchableOpacity>
+        {!isUploading ? <></> : <Text>Backing up online...</Text>}
       </ImageBackground>
+
       <ImageBackground
         source={require("../filmreel.jpg")}
         // source={require("../filmcartoonblack.png")}
