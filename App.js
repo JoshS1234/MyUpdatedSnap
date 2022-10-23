@@ -8,6 +8,7 @@ import AlbumStack from "./stacks/AlbumStack";
 import CameraScreen from "./screens/CameraScreen";
 import { MaterialIcons, Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { MenuProvider } from "react-native-popup-menu";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -49,16 +50,18 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer style={{ flex: 1 }}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Login"
-          component={Login}
-        />
-        <Stack.Screen name="Home" component={TabNav}></Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <MenuProvider>
+      <NavigationContainer style={{ flex: 1 }}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name="Login"
+            component={Login}
+          />
+          <Stack.Screen name="Home" component={TabNav}></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </MenuProvider>
   );
 }
 
